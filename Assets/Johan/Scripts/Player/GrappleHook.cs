@@ -13,6 +13,7 @@ public class GrappleHook : MonoBehaviour
     public GameObject crosshair;
     public float range = 20f;
     public float speed = 6f;
+    public LineRenderer lineRenderer;
 
     bool isHooked = false;
     bool isFiring = false;
@@ -39,6 +40,7 @@ public class GrappleHook : MonoBehaviour
         else
         {
             isHooked = false;
+            lineRenderer.enabled = false;
         }
 
     }
@@ -68,6 +70,11 @@ public class GrappleHook : MonoBehaviour
                 {
                     hit.transform.GetComponent<GrappleShader>().Shade();
                     crosshair.GetComponent<Image>().color = shadedColor;
+                    lineRenderer.enabled = true;
+                    lineRenderer.startWidth = 0.3f;
+                    lineRenderer.endWidth = 0.3f;
+                    lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
+                    lineRenderer.SetPosition(1, hit.transform.position);
                 }
                 catch
                 {
