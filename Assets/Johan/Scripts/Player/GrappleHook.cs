@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GrappleHook : MonoBehaviour
 {
 
     public CharacterController character;
     public LayerMask hookMask;
-    public Camera camera;
+    public new Camera camera;
+    public Color shadedColor;
+    public GameObject crosshair;
     public float range = 20f;
     public float speed = 6f;
 
@@ -18,6 +21,7 @@ public class GrappleHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if the grappling-button is held down
         if (Input.GetKey("mouse 0"))
         {
             isFiring = true;
@@ -27,6 +31,7 @@ public class GrappleHook : MonoBehaviour
             isFiring = false;
         }
 
+        // If the player is grappled, drag them closer
         if(isHooked && isFiring)
         {
             character.Move(speed * Time.deltaTime * (hookedTo.position - transform.position));
@@ -40,15 +45,42 @@ public class GrappleHook : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        RaycastHit hit;
+
+        // Try to grapple something
         if (isFiring && !isHooked)
         {
-            RaycastHit hit;
+            
             if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, hookMask))
             {
                 hookedTo = hit.transform;
                 isHooked = true;
             }
+        } 
+        // Shading-stuff
+        else
+        {
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, hookMask))
+            {
+                
+                try
+                {
+                    hit.transform.GetComponent<GrappleShader>().Shade();
+                    crosshair.GetComponent<Image>().color = shadedColor;
+                }
+                catch
+                {
+                    
+                }
+
+            }
+            else
+            {
+                crosshair.GetComponent<Image>().color = Color.white;
+            }
         }
+
     }
 
 }
