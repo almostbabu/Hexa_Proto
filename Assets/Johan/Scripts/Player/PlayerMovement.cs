@@ -8,10 +8,13 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController character;
 
     public Transform groundcheck;
+    public Transform enemycheck;
     public Transform respawn;
     float groundDistance = 0.4f;
+    float enemyDistance = 0.8f;
     public LayerMask groundMask;
     public LayerMask deadMask;
+    public LayerMask enemyMask;
 
 
     public float speed = 6f;
@@ -47,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
         character.Move(velocity * Time.deltaTime);
         
         if(Physics.CheckSphere(groundcheck.position, groundDistance, deadMask))
+        {
+            transform.position = respawn.position;
+        }
+
+        if (Physics.CheckSphere(enemycheck.position, enemyDistance, enemyMask))
         {
             transform.position = respawn.position;
         }
