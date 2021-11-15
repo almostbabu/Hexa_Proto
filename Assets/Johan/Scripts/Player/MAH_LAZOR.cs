@@ -8,7 +8,7 @@ public class MAH_LAZOR : MonoBehaviour
 {
 
     //public CharacterController character;
-    public LayerMask enemyMask;
+    public LayerMask destroyMask;
     public new Camera camera;
     public Transform laserOrigin;
     //public Color shadedColor;
@@ -43,7 +43,7 @@ public class MAH_LAZOR : MonoBehaviour
         if (isFiring)
         {
 
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, enemyMask))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, destroyMask))
             {
                 try
                 {
