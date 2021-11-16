@@ -55,7 +55,7 @@ public class MAH_LAZOR : MonoBehaviour
                     lineRenderer.SetPosition(0, laserOrigin.position);
                     lineRenderer.SetPosition(1, hit.transform.position);
 
-                    Destroy(hit.transform.gameObject);
+                    hit.transform.GetComponent<TakesDamage>().takeDamage();
                 }
                 catch
                 {
