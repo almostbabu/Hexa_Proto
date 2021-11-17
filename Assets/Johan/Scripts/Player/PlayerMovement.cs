@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     public float speed = 6f;
+    public float sprintModifier = 3f;
     public float gravity = -20f;
     public float jumpHeight = 20f;
 
     Vector3 velocity;
     bool isGrounded;
+    bool isSprinting;
     
     void Update()
     {
@@ -38,9 +40,31 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        character.Move(move * speed * Time.deltaTime);
+        // Sprint
+        if (isGrounded && Input.GetKey(KeyCode.LeftShift))
+        {
+            isSprinting = true;
+        }
+        else if (!isGrounded && isSprinting)
+        {
+            isSprinting = true;
+        }
+        else
+        {
+            isSprinting = false;
+        }
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (isSprinting)
+        {
+            character.Move(move * speed * sprintModifier * Time.deltaTime);
+        }
+        else
+        {
+            character.Move(move * speed * Time.deltaTime);
+        }
+
+        // Jumping
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
