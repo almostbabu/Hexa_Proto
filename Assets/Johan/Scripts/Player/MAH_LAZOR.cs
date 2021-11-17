@@ -53,7 +53,7 @@ public class MAH_LAZOR : MonoBehaviour
                     lineRenderer.startWidth = 0.3f;
                     lineRenderer.endWidth = 0.3f;
                     lineRenderer.SetPosition(0, laserOrigin.position);
-                    lineRenderer.SetPosition(1, hit.transform.position);
+                    lineRenderer.SetPosition(1, hit.point);
 
                     hit.transform.GetComponent<TakesDamage>().takeDamage();
                 }
