@@ -17,7 +17,7 @@ public class GrappleHook : MonoBehaviour
 
     bool isHooked = false;
     bool isFiring = false;
-    Transform hookedTo;
+    RaycastHit hookedTo;
 
     // Update is called once per frame
     void Update()
@@ -35,7 +35,7 @@ public class GrappleHook : MonoBehaviour
         // If the player is grappled, drag them closer
         if(isHooked && isFiring)
         {
-            character.Move(speed * Time.deltaTime * (hookedTo.position - transform.position));
+            character.Move(speed * Time.deltaTime * (hookedTo.point - transform.position));
         }
         else
         {
@@ -54,38 +54,56 @@ public class GrappleHook : MonoBehaviour
         if (isFiring && !isHooked)
         {
             
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, hookMask))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
             {
-                hookedTo = hit.transform;
                 isHooked = true;
             }
         } 
-        // Shading-stuff
+        // Shade if hooked
+        else if (isHooked)
+        {
+            try
+            {
+                hookedTo.transform.GetComponent<GrappleShader>().Shade();
+                crosshair.GetComponent<Image>().color = shadedColor;
+                lineRenderer.enabled = true;
+                lineRenderer.startWidth = 0.3f;
+                lineRenderer.endWidth = 0.3f;
+                lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
+                lineRenderer.SetPosition(1, hookedTo.point);
+            }
+            catch
+            {
+
+            }
+            
+        }
+        // Shade the crosshair when hovering over something
         else
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hit, range, hookMask))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
             {
-                
                 try
                 {
-                    hit.transform.GetComponent<GrappleShader>().Shade();
+                    hookedTo.transform.GetComponent<GrappleShader>().Shade();
                     crosshair.GetComponent<Image>().color = shadedColor;
                     lineRenderer.enabled = true;
                     lineRenderer.startWidth = 0.3f;
                     lineRenderer.endWidth = 0.3f;
                     lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
-                    lineRenderer.SetPosition(1, hit.transform.position);
+                    lineRenderer.SetPosition(1, hookedTo.point);
                 }
                 catch
                 {
-                    
-                }
 
-            }
+                }
+                
+            } 
             else
             {
                 crosshair.GetComponent<Image>().color = Color.white;
             }
+            
         }
 
     }
