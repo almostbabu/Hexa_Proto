@@ -119,7 +119,7 @@ MonoBehaviour:
   groundcheck: {fileID: 5664354741916096051}
   groundMask:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 1344
   deadMask:
     serializedVersion: 2
     m_Bits: 128

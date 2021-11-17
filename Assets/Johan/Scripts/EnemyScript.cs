@@ -21,6 +21,9 @@ public class EnemyScript : MonoBehaviour
     public Transform player;
     public float range;
 
+    float pushForce = 0f;
+    public const float PUSH_DECAY = 0.2f;
+
     // Update is called once per frame
     void Update()
     {
@@ -32,15 +35,48 @@ public class EnemyScript : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < range)
+        // The enemy has been pushed
+        if (pushForce > 0.01f)
         {
+            //Debug.Log(pushForce);
             float x = player.position.x - transform.position.x;
+            float y = player.position.y - transform.position.y;
             float z = player.position.z - transform.position.z;
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 move = transform.right * x + transform.forward * z + transform.up * y;
             move = move.normalized;
 
-            character.Move(move * speed * Time.deltaTime);
+            character.Move(move * -pushForce);
+            pushForce -= PUSH_DECAY * Time.deltaTime;
+        }
+        // The enemy is recovering from the push
+        else if (pushForce > 0f)
+        {
+            if (Vector3.Distance(player.position, transform.position) < range)
+            {
+                float x = player.position.x - transform.position.x;
+                float z = player.position.z - transform.position.z;
+
+                Vector3 move = transform.right * x + transform.forward * z;
+                move = move.normalized;
+
+                character.Move(move * speed * 0.1f * Time.deltaTime);
+                pushForce -= PUSH_DECAY * Time.deltaTime * 0.1f;
+            }
+        } 
+        // Regular state (full walk-speed)
+        else
+        {
+            if (Vector3.Distance(player.position, transform.position) < range)
+            {
+                float x = player.position.x - transform.position.x;
+                float z = player.position.z - transform.position.z;
+
+                Vector3 move = transform.right * x + transform.forward * z;
+                move = move.normalized;
+
+                character.Move(move * speed * Time.deltaTime);
+            }
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -52,6 +88,15 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    public void push(float strength)
+    {
+        // Soft-delay between pushes
+        if (pushForce <= 0f)
+        {
+            pushForce = strength;
+        }
     }
 
 }
