@@ -15,8 +15,11 @@ public class GrappleHook : MonoBehaviour
     public float speed = 6f;
     public LineRenderer lineRenderer;
 
+    public const float TIME_TO_HOOK = 3f;
+
     bool isHooked = false;
     bool isFiring = false;
+    float hookTimer = 0f;
     RaycastHit hookedTo;
 
     // Update is called once per frame
@@ -37,9 +40,15 @@ public class GrappleHook : MonoBehaviour
         {
             character.Move(speed * Time.deltaTime * (hookedTo.point - transform.position));
         }
-        else
+        else if (!isFiring)
         {
             isHooked = false;
+            hookTimer = 0f;
+            lineRenderer.enabled = false;
+        }
+
+        if(hookTimer == 0f)
+        {
             lineRenderer.enabled = false;
         }
 
@@ -56,11 +65,21 @@ public class GrappleHook : MonoBehaviour
             
             if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
             {
-                isHooked = true;
+                hookTimer += 0.1f;
+                if (hookTimer > TIME_TO_HOOK)
+                {
+                    isHooked = true;
+                }
             }
+            else
+            {
+                hookTimer = 0f;
+            }
+
         } 
+        
         // Shade if hooked
-        else if (isHooked)
+        if (isHooked)
         {
             try
             {
@@ -91,7 +110,7 @@ public class GrappleHook : MonoBehaviour
                     lineRenderer.startWidth = 0.3f;
                     lineRenderer.endWidth = 0.3f;
                     lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
-                    lineRenderer.SetPosition(1, hookedTo.point);
+                    lineRenderer.SetPosition(1, Vector3.Lerp(transform.position - new Vector3(0f, 1f, 0f), hookedTo.point, hookTimer/TIME_TO_HOOK));
                 }
                 catch
                 {
