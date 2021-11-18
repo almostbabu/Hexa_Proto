@@ -1,10 +1,12 @@
 using UnityEngine;
 
+//https://sharpcoderblog.com/blog/head-bobbing-effect-in-unity-3d
 public class SC_HeadBobber : MonoBehaviour
 {
     public float walkingBobbingSpeed = 14f;
     public float bobbingAmount = 0.05f;
-    public SC_CharacterController controller;
+    // I changed this
+    public PlayerMovement controller;
 
     float defaultPosY = 0;
     float timer = 0;

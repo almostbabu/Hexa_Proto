@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask deadMask;
     public LayerMask enemyMask;
 
+    [HideInInspector]
+    public Vector3 moveDirection = Vector3.zero;
 
     public float speed = 6f;
     public float sprintModifier = 3f;
@@ -73,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
         character.Move(velocity * Time.deltaTime);
         
+        // Respawning
         if(Physics.CheckSphere(groundcheck.position, groundDistance, deadMask))
         {
             transform.position = respawn.position;
@@ -82,6 +85,9 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = respawn.position;
         }
+
+        moveDirection = move;
+        moveDirection.y = velocity.y;
 
     }
 
