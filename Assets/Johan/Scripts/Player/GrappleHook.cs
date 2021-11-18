@@ -16,6 +16,8 @@ public class GrappleHook : MonoBehaviour
     public float minFlyRange = 3f;
     public float minHookRange = 10f;
     public LineRenderer lineRenderer;
+    public PlayerMovement playerMovement;
+    public float jumpModifier = 0.5f;
 
     public float TIME_TO_HOOK = 3f;
 
@@ -82,6 +84,7 @@ public class GrappleHook : MonoBehaviour
                     if (hookTimer > TIME_TO_HOOK)
                     {
                         isHooked = true;
+                        playerMovement.forceJump(jumpModifier);
                     }
                 }
                 else
