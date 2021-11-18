@@ -642,7 +642,12 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   range: 1000
   speed: 6
+  minFlyRange: 3
+  minHookRange: 4.5
   lineRenderer: {fileID: 1611345076171948176}
+  playerMovement: {fileID: 2675952624579107745}
+  jumpModifier: 0.5
+  TIME_TO_HOOK: 3
 --- !u!114 &2675952624579107805
 MonoBehaviour:
   m_ObjectHideFlags: 0

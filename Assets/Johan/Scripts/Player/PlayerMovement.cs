@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool isSprinting;
+    bool isForcingJump = false;
+    float jumpModifier = 1f;
     
     void Update()
     {
@@ -66,9 +68,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if ((Input.GetButtonDown("Jump") || isForcingJump) && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity * jumpModifier);
+            jumpModifier = 1f;
+            isForcingJump = false;
         }
         
         velocity.y += gravity * Time.deltaTime;
@@ -89,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = move;
         moveDirection.y = velocity.y;
 
+    }
+
+    public void forceJump(float heightModifier)
+    {
+        isForcingJump = true;
+        jumpModifier = heightModifier;
     }
 
 }
