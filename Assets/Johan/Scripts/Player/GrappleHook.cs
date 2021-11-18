@@ -17,7 +17,7 @@ public class GrappleHook : MonoBehaviour
     public float minHookRange = 10f;
     public LineRenderer lineRenderer;
 
-    public const float TIME_TO_HOOK = 3f;
+    public float TIME_TO_HOOK = 3f;
 
     bool isHooked = false;
     bool isFiring = false;
