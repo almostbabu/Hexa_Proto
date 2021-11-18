@@ -13,6 +13,8 @@ public class GrappleHook : MonoBehaviour
     public GameObject crosshair;
     public float range = 20f;
     public float speed = 6f;
+    public float minFlyRange = 3f;
+    public float minHookRange = 10f;
     public LineRenderer lineRenderer;
 
     public const float TIME_TO_HOOK = 3f;
@@ -38,7 +40,16 @@ public class GrappleHook : MonoBehaviour
         // If the player is grappled, drag them closer
         if(isHooked && isFiring)
         {
-            character.Move(speed * Time.deltaTime * (hookedTo.point - transform.position));
+            if(Vector3.Distance(character.transform.position, hookedTo.point) < minFlyRange)
+            {
+                isHooked = false;
+                hookTimer = 0f;
+                lineRenderer.enabled = false;
+            }
+            else
+            {
+                character.Move(speed * Time.deltaTime * (hookedTo.point - transform.position));
+            }
         }
         else if (!isFiring)
         {
@@ -65,10 +76,17 @@ public class GrappleHook : MonoBehaviour
             
             if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
             {
-                hookTimer += 0.1f;
-                if (hookTimer > TIME_TO_HOOK)
+                if (!(Vector3.Distance(character.transform.position, hookedTo.point) < minHookRange))
                 {
-                    isHooked = true;
+                    hookTimer += 0.1f;
+                    if (hookTimer > TIME_TO_HOOK)
+                    {
+                        isHooked = true;
+                    }
+                }
+                else
+                {
+                    hookTimer = 0f;
                 }
             }
             else

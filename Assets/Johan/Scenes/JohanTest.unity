@@ -3370,10 +3370,18 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 1544968587}
+    - target: {fileID: 1611345076171948178, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
+      propertyPath: minHookRange
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2675952624579107745, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
       propertyPath: respawn
       value: 
       objectReference: {fileID: 1265264582}
+    - target: {fileID: 2675952624579107745, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
+      propertyPath: jumpHeight
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2675952624579107804, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
       propertyPath: m_Name
       value: Player
