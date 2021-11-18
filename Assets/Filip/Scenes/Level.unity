@@ -348,7 +348,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b905f60df09c8245b6e0d5af2e04c7f, type: 2}
+  - {fileID: 2100000, guid: 8d530ffe6c4968843806085897955b9d, type: 2}
   - {fileID: 2100000, guid: 4b905f60df09c8245b6e0d5af2e04c7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -642,6 +642,10 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 334697625}
+    - target: {fileID: 1611345076171948178, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
+      propertyPath: TIME_TO_HOOK
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2675952624579107745, guid: f0ac44f17f346b042b96c0f2879e1ef4, type: 3}
       propertyPath: respawn
       value: 
