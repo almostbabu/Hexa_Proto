@@ -526,8 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e82ee6e6f77c141b93c5e3afcf60bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToFade: 60
-  delay: 10
+  timeToFade: 30
+  delay: 8
   image: {fileID: 46193159}
 --- !u!1 &497123209
 GameObject:

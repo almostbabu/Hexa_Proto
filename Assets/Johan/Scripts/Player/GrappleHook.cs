@@ -76,9 +76,10 @@ public class GrappleHook : MonoBehaviour
         if (isFiring && !isHooked)
         {
             
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range))
             {
-                if (!(Vector3.Distance(character.transform.position, hookedTo.point) < minHookRange))
+                if (!(Vector3.Distance(character.transform.position, hookedTo.point) < minHookRange) && 
+                     hookMask == (hookMask | (1 << hookedTo.transform.gameObject.layer)))
                 {
                     hookTimer += 0.1f;
                     if (hookTimer > TIME_TO_HOOK)
@@ -121,23 +122,29 @@ public class GrappleHook : MonoBehaviour
         // Shade the crosshair when hovering over something
         else
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range, hookMask))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward * range, out hookedTo, range))
             {
-                try
+                if (hookMask == (hookMask | (1 << hookedTo.transform.gameObject.layer)))
                 {
-                    hookedTo.transform.GetComponent<GrappleShader>().Shade();
-                    crosshair.GetComponent<Image>().color = shadedColor;
-                    lineRenderer.enabled = true;
-                    lineRenderer.startWidth = 0.3f;
-                    lineRenderer.endWidth = 0.3f;
-                    lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
-                    lineRenderer.SetPosition(1, Vector3.Lerp(transform.position - new Vector3(0f, 1f, 0f), hookedTo.point, hookTimer/TIME_TO_HOOK));
-                }
-                catch
-                {
+                    try
+                    {
+                        hookedTo.transform.GetComponent<GrappleShader>().Shade();
+                        crosshair.GetComponent<Image>().color = shadedColor;
+                        lineRenderer.enabled = true;
+                        lineRenderer.startWidth = 0.3f;
+                        lineRenderer.endWidth = 0.3f;
+                        lineRenderer.SetPosition(0, transform.position - new Vector3(0f, 1f, 0f));
+                        lineRenderer.SetPosition(1, Vector3.Lerp(transform.position - new Vector3(0f, 1f, 0f), hookedTo.point, hookTimer / TIME_TO_HOOK));
+                    }
+                    catch
+                    {
 
+                    }
                 }
-                
+                else
+                {
+                    crosshair.GetComponent<Image>().color = Color.white;
+                }
             } 
             else
             {
