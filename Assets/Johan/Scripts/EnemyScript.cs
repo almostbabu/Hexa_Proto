@@ -24,6 +24,11 @@ public class EnemyScript : MonoBehaviour
     float pushForce = 0f;
     public const float PUSH_DECAY = 0.2f;
 
+    Vector3 direction;
+    Quaternion lookRotation;
+    public float rotationSpeed = 6f;
+    public Transform slime;
+
     // Update is called once per frame
     void Update()
     {
@@ -34,6 +39,11 @@ public class EnemyScript : MonoBehaviour
         {
             velocity.y = -2f;
         }
+
+        // Look at player
+        direction = (player.position - transform.position).normalized;
+        lookRotation = Quaternion.LookRotation(direction);
+        slime.rotation = Quaternion.Slerp(slime.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // The enemy has been pushed
         if (pushForce > 0.01f)
