@@ -38,7 +38,7 @@ public class ForcePush : MonoBehaviour
             {
                 try
                 {
-                    hit.transform.GetComponent<EnemyScript>().push(strength);
+                    hit.transform.GetComponent<EnemyScript>().push(strength * 10f);
                 }
                 catch
                 {

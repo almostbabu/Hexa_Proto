@@ -63,7 +63,7 @@ public class EnemyScript : MonoBehaviour
                 character.Move(move * speed * 0.1f * Time.deltaTime);
                 pushForce -= PUSH_DECAY * Time.deltaTime * 0.1f;
             }
-        } 
+        }
         // Regular state (full walk-speed)
         else
         {
@@ -98,5 +98,6 @@ public class EnemyScript : MonoBehaviour
             pushForce = strength;
         }
     }
+
 
 }
