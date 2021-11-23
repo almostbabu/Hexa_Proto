@@ -5656,7 +5656,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37396
+  m_Name: pb_Mesh56306
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11258,6 +11258,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785968f9b1172ba419d1993244f7850e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 64
+  wallrunForce: 2
+  maxWallrunTime: 2
+  maxWallSpeed: 10
+  maxWallRunCameraTilt: 5
+  wallRunCameraTilt: 5
   playerCam: {fileID: 851824748}
   orientation: {fileID: 2136951631}
   moveSpeed: 4500
@@ -11270,7 +11278,28 @@ MonoBehaviour:
   maxSlopeAngle: 35
   slideForce: 400
   slideCounterMovement: 0.2
-  jumpForce: 550
+  crouchGravityMultiplier: 0
+  jumpForce: 450
+  startDoubleJumps: 1
+  x: 0
+  y: 0
+  dashForce: 10
+  dashCooldown: 2
+  dashTime: 3
+  maxRocketTime: 0
+  rocketForce: 0
+  maxSonicSpeed: 0
+  sonicSpeedForce: 0
+  timeBetweenNextSonicBoost: 0
+  flashCooldown: 0
+  flashRange: 0
+  maxFlashesLeft: 0
+  flashesLeft: 3
+  climbForce: 0
+  maxClimbSpeed: 0
+  whatIsLadder:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &337339350
 Rigidbody:
   m_ObjectHideFlags: 0
