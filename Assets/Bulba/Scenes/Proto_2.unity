@@ -4716,7 +4716,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152959354}
-  m_LocalRotation: {x: -0.0000000074505797, y: 0.7071068, z: 0, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -37.500004, y: 24, z: -148.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26163,7 +26163,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455661528}
-  m_LocalRotation: {x: -0.0000000074505797, y: 0.7071068, z: 0, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -37.500004, y: 24, z: -148.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26184,6 +26184,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785968f9b1172ba419d1993244f7850e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
+  wallrunForce: 0
+  maxWallrunTime: 0
+  maxWallSpeed: 0
+  maxWallRunCameraTilt: 0
+  wallRunCameraTilt: 0
   playerCam: {fileID: 152959356}
   orientation: {fileID: 956124480}
   moveSpeed: 4500
@@ -26196,8 +26204,28 @@ MonoBehaviour:
   maxSlopeAngle: 35
   slideForce: 400
   slideCounterMovement: 0.2
+  crouchGravityMultiplier: 0
   jumpForce: 550
-  sprintMaxSpeed: 40
+  startDoubleJumps: 1
+  x: 0
+  y: 0
+  dashForce: 0
+  dashCooldown: 0
+  dashTime: 0
+  maxRocketTime: 0
+  rocketForce: 0
+  maxSonicSpeed: 0
+  sonicSpeedForce: 0
+  timeBetweenNextSonicBoost: 0
+  flashCooldown: 0
+  flashRange: 0
+  maxFlashesLeft: 0
+  flashesLeft: 3
+  climbForce: 0
+  maxClimbSpeed: 0
+  whatIsLadder:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1455661531
 Rigidbody:
   m_ObjectHideFlags: 0
