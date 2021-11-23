@@ -151,6 +151,9 @@ public class PlayerMoevement2 : MonoBehaviour
         // Movement while sliding
         if (grounded && crouching) multiplierV = 0f;
 
+        // Sprinting?
+        if (sprinting) multiplier = 2f;
+
         //Apply forces to move player
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
