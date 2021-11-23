@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     bool isSprinting;
     bool isForcingJump = false;
     float jumpModifier = 1f;
+
+    public AnimeSpikeController asc;
     
     void Update()
     {
@@ -52,15 +54,18 @@ public class PlayerMovement : MonoBehaviour
         else if (!isGrounded && isSprinting)
         {
             isSprinting = true;
+            
         }
         else
         {
             isSprinting = false;
+            asc.stopSpikes();
         }
 
         if (isSprinting)
         {
             character.Move(move * speed * sprintModifier * Time.deltaTime);
+            asc.startSpikes();
         }
         else
         {

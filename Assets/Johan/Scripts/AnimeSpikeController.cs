@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class AnimeSpikeController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public ParticleSystem spikeSpawner;
+
+    private bool isPlaying = false;
+
+    public void startSpikes()
     {
-        
+        if (!isPlaying)
+        {
+            spikeSpawner.Play();
+            isPlaying = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void stopSpikes()
     {
-        
+        if (isPlaying)
+        {
+            spikeSpawner.Stop();
+            isPlaying = false;
+        }
     }
+
 }
