@@ -86,6 +86,7 @@ public class PlayerMoevement2 : MonoBehaviour
             StartCrouch();
         if (Input.GetKeyUp(KeyCode.LeftControl))
             StopCrouch();
+
     }
 
     private void StartCrouch()
