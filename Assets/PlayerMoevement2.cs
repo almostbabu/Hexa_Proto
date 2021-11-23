@@ -43,6 +43,9 @@ public class PlayerMoevement2 : MonoBehaviour
     float x, y;
     bool jumping, sprinting, crouching;
 
+    //Sprinting
+    public float sprintMaxSpeed = 40f;
+
     //Sliding
     private Vector3 normalVector = Vector3.up;
     private Vector3 wallNormalVector;
@@ -86,6 +89,12 @@ public class PlayerMoevement2 : MonoBehaviour
             StartCrouch();
         if (Input.GetKeyUp(KeyCode.LeftControl))
             StopCrouch();
+
+        //Sprinting
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            StartSprint();
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            StopSprint();
     }
 
     private void StartCrouch()
@@ -105,6 +114,16 @@ public class PlayerMoevement2 : MonoBehaviour
     {
         transform.localScale = playerScale;
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+    }
+
+    private void StartSprint()
+    {
+        maxSpeed = sprintMaxSpeed;
+    }
+
+    private void StopSprint()
+    {
+        maxSpeed = 20f;
     }
 
     private void Movement()
