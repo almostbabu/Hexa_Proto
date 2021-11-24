@@ -7,7 +7,7 @@ public class AnimeSpikeController : MonoBehaviour
 
     public ParticleSystem spikeSpawner;
 
-    private bool isPlaying = false;
+    private bool isPlaying;
 
     [SerializeField]
     private float upperFOV = 60f, lowerFOV = 20f, raiseFOV = 2f, decreaseFOV = 2f;
@@ -15,21 +15,16 @@ public class AnimeSpikeController : MonoBehaviour
     private float fovGoal;
     private float fovCurrent;
 
+    public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
+
+    public new Camera camera;
+
     private void Start()
     {
-
         fovCurrent = upperFOV;
         fovGoal = upperFOV;
-        
-        try
-        {
-            Camera.main.fieldOfView = fovCurrent;
-            spikeSpawner.Stop();
-        }
-        catch
-        {
-
-        }
+        IsPlaying = false;
+        spikeSpawner.Stop();
     }
 
     private void Update()
@@ -41,7 +36,7 @@ public class AnimeSpikeController : MonoBehaviour
             {
                 fovCurrent = fovGoal;
             }
-            Camera.main.fieldOfView = fovCurrent;
+            camera.fieldOfView = fovCurrent;
         }
         else if (fovCurrent > fovGoal)
         {
@@ -50,27 +45,27 @@ public class AnimeSpikeController : MonoBehaviour
             {
                 fovCurrent = fovGoal;
             }
-            Camera.main.fieldOfView = fovCurrent;
+            camera.fieldOfView = fovCurrent;
         }
     }
 
     public void startSpikes()
     {
-        if (!isPlaying)
+        if (!IsPlaying)
         {
             fovGoal = lowerFOV;
             spikeSpawner.Play();
-            isPlaying = true;
+            IsPlaying = true;
         }
     }
 
     public void stopSpikes()
     {
-        if (isPlaying)
+        if (IsPlaying)
         {
             fovGoal = upperFOV;
             spikeSpawner.Stop();
-            isPlaying = false;
+            IsPlaying = false;
         }
     }
 
