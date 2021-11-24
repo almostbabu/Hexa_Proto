@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1455661529}
   respawnPoint: {fileID: 362436551}
+  grapplingGun: {fileID: 1428299065}
 --- !u!1 &162615571
 GameObject:
   m_ObjectHideFlags: 0
@@ -14211,6 +14212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1455661529}
   respawnPoint: {fileID: 362436551}
+  grapplingGun: {fileID: 1428299065}
 --- !u!43 &1187082375
 Mesh:
   m_ObjectHideFlags: 0
@@ -17075,7 +17077,7 @@ MonoBehaviour:
   gunTip: {fileID: 1774669737}
   camera: {fileID: 152959356}
   player: {fileID: 1455661529}
-  pullSpeed: -30
+  pullSpeed: -100
   minimumDistance: 0.1
 --- !u!120 &1428299066
 LineRenderer:
