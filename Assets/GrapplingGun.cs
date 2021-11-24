@@ -8,7 +8,10 @@ public class GrapplingGun : MonoBehaviour
     public LayerMask whatIsGrappleable;
     public Transform gunTip, camera, player;
     private float maxDistance = 100f;
+    private float distanceFromPoint;
     private SpringJoint joint;
+    [SerializeField]
+    private float pullSpeed = -20f, minimumDistance = 0.1f;
 
     void Awake()
     {
@@ -24,6 +27,11 @@ public class GrapplingGun : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             StopGrapple();
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            AdjustGrapple(pullSpeed * Time.deltaTime);
         }
     }
 
@@ -46,7 +54,7 @@ public class GrapplingGun : MonoBehaviour
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = grapplePoint;
 
-            float distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
+            distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
             //The distance grapple will try to keep from grapple point. 
             joint.maxDistance = distanceFromPoint * 0.8f;
@@ -62,6 +70,23 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Call whenever we want to start a grapple
+    /// </summary>
+    void AdjustGrapple(float amount)
+    {
+        if(joint != null)
+        {
+            distanceFromPoint += amount;
+            if (distanceFromPoint < minimumDistance)
+            {
+                distanceFromPoint = minimumDistance;
+            }
+            //The distance grapple will try to keep from grapple point. 
+            joint.maxDistance = distanceFromPoint * 0.8f;
+            joint.minDistance = distanceFromPoint * 0.25f;
+        }
+    }
 
     /// <summary>
     /// Call whenever we want to stop a grapple
