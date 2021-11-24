@@ -25560,7 +25560,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21232
+  m_Name: pb_Mesh29022
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36996,6 +36996,7 @@ GameObject:
   - component: {fileID: 1928085780}
   - component: {fileID: 1928085779}
   - component: {fileID: 1928085781}
+  - component: {fileID: 1928085782}
   m_Layer: 0
   m_Name: MainCamera2.0
   m_TagString: Untagged
@@ -37081,12 +37082,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24ea0ae0fb8b0d40b1a6d0d5870a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spikeSpawner: {fileID: 4920092679635575631, guid: fc5b02943ee28fa4b8865662a045791a, type: 3}
+  spikeSpawner: {fileID: 5391383372771118483, guid: fc5b02943ee28fa4b8865662a045791a, type: 3}
   upperFOV: 60
   lowerFOV: 20
   raiseFOV: 2
   decreaseFOV: 2
   camera: {fileID: 1928085780}
+--- !u!114 &1928085782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928085777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b35cc0dc4413844a8015d2abe2ee7da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobbingSpeed: 0.05
+  bobbingAmount: 0.01
+  midpoint: 2
 --- !u!43 &2003911942
 Mesh:
   m_ObjectHideFlags: 0
