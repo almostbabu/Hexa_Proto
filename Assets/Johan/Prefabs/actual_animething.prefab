@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 11365306196140305}
   - component: {fileID: 11365306196140304}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: actual_animething
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +659,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 10
+    type: 17
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}

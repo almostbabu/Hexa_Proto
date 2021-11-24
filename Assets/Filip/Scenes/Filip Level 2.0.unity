@@ -27962,6 +27962,8 @@ MonoBehaviour:
   gunTip: {fileID: 657659918}
   camera: {fileID: 851824748}
   player: {fileID: 337339348}
+  pullSpeed: -20
+  minimumDistance: 0.1
 --- !u!120 &906296763
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -47976,17 +47978,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 616458765}
   m_IsSelectable: 1
-  m_SelectedFaces: 00000000
-  m_SelectedEdges:
-  - a: 0
-    b: 1
-  - a: 2
-    b: 0
-  - a: 1
-    b: 3
-  - a: 3
-    b: 2
-  m_SelectedVertices: 00000000010000000200000003000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &1567697456
 Transform:
   m_ObjectHideFlags: 0
@@ -51329,7 +51323,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17716
+  m_Name: pb_Mesh41796
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -69685,6 +69679,8 @@ MonoBehaviour:
   gunTip: {fileID: 657659918}
   camera: {fileID: 851824748}
   player: {fileID: 337339348}
+  pullSpeed: -20
+  minimumDistance: 0.1
 --- !u!1001 &5391383371580145772
 PrefabInstance:
   m_ObjectHideFlags: 0
