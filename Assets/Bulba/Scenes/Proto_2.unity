@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1455661529}
   respawnPoint: {fileID: 362436551}
+  grapplingGun: {fileID: 0}
 --- !u!1 &162615571
 GameObject:
   m_ObjectHideFlags: 0
@@ -14868,6 +14869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1455661529}
   respawnPoint: {fileID: 362436551}
+  grapplingGun: {fileID: 1428299065}
 --- !u!43 &1187082375
 Mesh:
   m_ObjectHideFlags: 0
