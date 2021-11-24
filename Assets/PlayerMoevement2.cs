@@ -143,6 +143,11 @@ public class PlayerMoevement2 : MonoBehaviour
     public LayerMask whatIsLadder;
     bool alreadyStoppedAtLadder;
 
+    //Spikes
+    public AnimeSpikeController animeSpikeController;
+    public float getSpikeThreshold = 20f;
+    public float loseSpikeThreshold = 20f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -321,6 +326,16 @@ public class PlayerMoevement2 : MonoBehaviour
         //Apply forces to move player
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+
+        //Handle spikes
+        if ((rb.velocity.magnitude > getSpikeThreshold) && !animeSpikeController.IsPlaying)
+        {
+            animeSpikeController.startSpikes();
+        }
+        else if ((rb.velocity.magnitude < loseSpikeThreshold) && animeSpikeController.IsPlaying)
+        {
+            animeSpikeController.stopSpikes();
+        }
     }
 
     private void Jump()

@@ -11300,6 +11300,9 @@ MonoBehaviour:
   whatIsLadder:
     serializedVersion: 2
     m_Bits: 0
+  animeSpikeController: {fileID: 1577675618}
+  getSpikeThreshold: 35
+  loseSpikeThreshold: 20
 --- !u!54 &337339350
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -46718,6 +46721,73 @@ Transform:
   m_Father: {fileID: 1650009233}
   m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: -0.07699585}
+--- !u!1001 &1336612708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1577675615}
+    m_Modifications:
+    - target: {fileID: 11365306196140307, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_Name
+      value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+--- !u!4 &1336612709 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 11365306196140782, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+  m_PrefabInstance: {fileID: 1336612708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1336612710 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 11365306196140305, guid: d7e319d861179114cb6b6c29e0f761a3, type: 3}
+  m_PrefabInstance: {fileID: 1336612708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1340111149
 Mesh:
   m_ObjectHideFlags: 0
@@ -52746,6 +52816,7 @@ GameObject:
   - component: {fileID: 1577675615}
   - component: {fileID: 1577675617}
   - component: {fileID: 1577675616}
+  - component: {fileID: 1577675618}
   m_Layer: 0
   m_Name: MainCamera2.0
   m_TagString: Untagged
@@ -52765,6 +52836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1358548436}
+  - {fileID: 1336612709}
   m_Father: {fileID: 851824748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52819,6 +52891,24 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1577675618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577675614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24ea0ae0fb8b0d40b1a6d0d5870a8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spikeSpawner: {fileID: 1336612710}
+  upperFOV: 60
+  lowerFOV: 50
+  raiseFOV: 120
+  decreaseFOV: 60
+  camera: {fileID: 1577675617}
 --- !u!1 &1612604644
 GameObject:
   m_ObjectHideFlags: 0
