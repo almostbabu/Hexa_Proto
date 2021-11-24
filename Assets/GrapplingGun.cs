@@ -91,7 +91,7 @@ public class GrapplingGun : MonoBehaviour
     /// <summary>
     /// Call whenever we want to stop a grapple
     /// </summary>
-   public void StopGrapple()
+    void StopGrapple()
     {
         lr.positionCount = 0;
         Destroy(joint);
