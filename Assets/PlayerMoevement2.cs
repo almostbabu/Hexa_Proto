@@ -18,8 +18,8 @@ public class PlayerMoevement2 : MonoBehaviour
     private void WallRunInput() //make sure to call in void Update
     {
         //Wallrun
-        if (Input.GetKey(KeyCode.D) && isWallRight) StartWallrun();
-        if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallrun();
+        if (Input.GetAxis("Horizontal") > 0 && isWallRight) StartWallrun();
+        if (Input.GetAxis("Horizontal") < 0 && isWallLeft) StartWallrun();
     }
     private void StartWallrun()
     {
@@ -69,7 +69,7 @@ public class PlayerMoevement2 : MonoBehaviour
 
     //Rotation and look
     private float xRotation;
-    private float sensitivity = 50f;
+    private float sensitivity = 300f;
     private float sensMultiplier = 1f;
 
     //Movement
@@ -148,6 +148,9 @@ public class PlayerMoevement2 : MonoBehaviour
     public float getSpikeThreshold = 20f;
     public float loseSpikeThreshold = 20f;
 
+    private bool isCrouching = false;
+    private bool isSprinting = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -184,19 +187,31 @@ public class PlayerMoevement2 : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         jumping = Input.GetButton("Jump");
-        crouching = Input.GetKey(KeyCode.LeftControl);
+        crouching = Input.GetButton("Crouch");
+
+        Debug.Log(Input.GetAxis("Sprint"));
 
         //Crouching
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if ((Input.GetAxis("Crouch") < 0) && !isCrouching)
+        {
             StartCrouch();
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+            isCrouching = true;
+        } else if ((Input.GetAxis("Crouch") == 0) && isCrouching)
+        {
             StopCrouch();
+            isCrouching = false;
+        }
         //Dash
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if ((Input.GetAxis("Sprint") < 0) && !isSprinting)
+        {
             StartSprint();
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+            isSprinting = true;
+        }
+        else if ((Input.GetAxis("Sprint") == 0) && isSprinting)
+        {
             StopSprint();
-
+            isSprinting = false;
+        }
 
         //Double Jumping
         if (Input.GetButtonDown("Jump") && !grounded && doubleJumpsLeft >= 1)
@@ -274,7 +289,7 @@ public class PlayerMoevement2 : MonoBehaviour
 
         if (crouching) gravityMultiplier = crouchGravityMultiplier;
 
-        rb.AddForce(Vector3.down * Time.deltaTime * gravityMultiplier);
+        rb.AddForce(Vector3.down * Time.fixedDeltaTime * gravityMultiplier);
 
         //Find actual velocity relative to where player is looking
         Vector2 mag = FindVelRelativeToLook();
@@ -300,7 +315,7 @@ public class PlayerMoevement2 : MonoBehaviour
         //If sliding down a ramp, add force down so player stays grounded and also builds speed
         if (crouching && grounded && readyToJump)
         {
-            rb.AddForce(Vector3.down * Time.deltaTime * 3000);
+            rb.AddForce(Vector3.down * Time.fixedDeltaTime * 3000);
             return;
         }
 
@@ -324,8 +339,8 @@ public class PlayerMoevement2 : MonoBehaviour
         if (grounded && crouching) multiplierV = 0f;
 
         //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
-        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.fixedDeltaTime * multiplier * multiplierV);
+        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.fixedDeltaTime * multiplier);
 
         //Handle spikes
         if ((rb.velocity.magnitude > getSpikeThreshold) && !animeSpikeController.IsPlaying)
@@ -566,10 +581,11 @@ public class PlayerMoevement2 : MonoBehaviour
     }
 
     private float desiredX;
+
     private void Look()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime * sensMultiplier;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime * sensMultiplier;
 
         //Find current look rotation
         Vector3 rot = playerCam.transform.localRotation.eulerAngles;
@@ -596,6 +612,7 @@ public class PlayerMoevement2 : MonoBehaviour
         if (wallRunCameraTilt < 0 && !isWallRight && !isWallLeft)
             wallRunCameraTilt += Time.deltaTime * maxWallRunCameraTilt * 2;
     }
+
     private void CounterMovement(float x, float y, Vector2 mag)
     {
         if (!grounded || jumping) return;
@@ -603,18 +620,18 @@ public class PlayerMoevement2 : MonoBehaviour
         //Slow down sliding
         if (crouching)
         {
-            rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
+            rb.AddForce(moveSpeed * Time.fixedDeltaTime * -rb.velocity.normalized * slideCounterMovement);
             return;
         }
 
         //Counter movement
         if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
         {
-            rb.AddForce(moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement);
+            rb.AddForce(moveSpeed * orientation.transform.right * Time.fixedDeltaTime * -mag.x * counterMovement);
         }
         if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
         {
-            rb.AddForce(moveSpeed * orientation.transform.forward * Time.deltaTime * -mag.y * counterMovement);
+            rb.AddForce(moveSpeed * orientation.transform.forward * Time.fixedDeltaTime * -mag.y * counterMovement);
         }
 
         //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.
